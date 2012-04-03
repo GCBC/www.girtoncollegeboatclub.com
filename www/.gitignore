@@ -3,8 +3,8 @@ sites/default/files/*
 
 # Do not ignore the following functionality specific files
 
-! sites/default/files/addthis/
-! sites/default/files/addthis/*
-! sites/default/files/css3pie/
-! sites/default/files/css3pie/*
-! sites/default/files/.htaccess
+!sites/default/files/addthis/
+!sites/default/files/addthis/*
+!sites/default/files/css3pie/
+!sites/default/files/css3pie/*
+!sites/default/files/.htaccess

@@ -1,0 +1,51 @@
+# Apache sites configuration - "girtoncollegeboatclub"
+
+# Adapted from Apache "default" site configuration and using,
+# http://httpd.apache.org/docs/2.0/vhosts/examples.html
+# http://www.mcanerin.com/en/articles/301-redirect-apache.asp
+# - Calum 24/05/2011
+
+# Added support for clean urls.
+# http://drupal.org/node/15365
+# - Calum 13/08/2011
+
+# Adjusted redirection rules so google apps could access verification
+# file at girtoncollegeboatclub.com as girtoncollegeboatclub.com/...
+# was being redirected to www.girtoncollegeboatclub.com...
+# Added trailing slash to redirection target.
+# - Calum 08/09/2011
+
+ServerAdmin webmaster@girtoncollegeboatclub.com
+
+# Redirect traffic so all requests redirect to this domain and
+# are handled by this virtual host.
+<VirtualHost *:80>
+    ServerName www.girtoncollegeboatclub.com
+
+	DocumentRoot /var/www/drupal
+</VirtualHost>
+
+<VirtualHost *:80>
+    ServerName tools.girtoncollegeboatclub.com
+    
+    DocumentRoot /var/www/tools/public
+</VirtualHost>
+
+# Permantly redirect requests for girtoncollegeboatclub.com,
+# www.girtoncollegeboatclub.co.uk and girtoncollegeboatclub.co.uk
+# to www.girtoncollegeboatclub.com.
+<VirtualHost *:80>
+    ServerName girtoncollegeboatclub.com
+
+    Redirect permanent / http://www.girtoncollegeboatclub.com/
+</VirtualHost>
+<VirtualHost *:80>
+    ServerName www.girtoncollegeboatclub.co.uk
+
+    Redirect permanent / http://www.girtoncollegeboatclub.com/
+</VirtualHost>
+<VirtualHost *:80>
+    ServerName girtoncollegeboatclub.co.uk
+
+    Redirect permanent / http://www.girtoncollegeboatclub.com/
+</VirtualHost>

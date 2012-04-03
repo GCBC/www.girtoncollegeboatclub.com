@@ -1,0 +1,12 @@
+; $Id$
+name = WebFM mp3
+description = Extends the WebFM contextmenu for mp3 playback
+package = WebFM
+dependencies[] = webfm
+core = 6.x
+; Information added by drupal.org packaging script on 2011-02-28
+version = "6.x-2.15"
+core = "6.x"
+project = "webfm"
+datestamp = "1298931971"
+

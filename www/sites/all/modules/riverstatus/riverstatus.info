@@ -1,0 +1,5 @@
+name = "River Status"
+description = "Gets the current flag status and lighting times from the CUCBC website and displays them in a block. (D.R. Wilkins, 19/03/2008)"
+package = CUCBC Contrib
+version = VERSION
+core = 6.x

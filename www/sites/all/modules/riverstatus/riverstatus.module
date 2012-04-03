@@ -1,0 +1,80 @@
+<?php
+
+function riverstatus_perm() {
+	return array('access riverstatus');
+}
+
+function riverstatus_block($op='list', $delta=0) {
+	// block listing
+	if($op == "list") {
+		$block[0]["info"] = t('River Status');
+		return $block;
+	}
+	else if($op == 'view') {
+		$filename = "http://www.cucbc.org/flag.txt";
+		$flag_raw = ""; $flag=""; $date = ""; $lightings = array("","","","");
+		
+		// get the flag status from CUCBC
+		if($fp = fopen($filename, "r")) {
+			while(!feof($fp)) 
+				$flag_raw = fgets($fp, 1024);
+			fclose($fp);
+		}
+		else $flag = "";
+		
+		switch($flag_raw) {
+			case("grn"):
+				$flag = "Green";
+				break;
+			case("yel"):
+				$flag = "Yellow";
+				break;
+			case("ryl"):
+				$flag = "Red/Yellow";
+				break;
+			case("red"):
+				$flag = "Red";
+				break;
+			case("blu"):
+				$flag = "Cambridge Blue";
+				break;
+			case("gdb"):
+				$flag = "GDBO!";
+				break;
+			case("nop"):
+				$flag = "Not Operational";
+				break;
+			default:
+				$flag = "unavailable";
+				$flag_raw = "nop";	// use the grey flag icon if flag status is unavailable
+		}
+		
+		// get today's & tomorrw's lightings from CUCBC
+		$filename = "http://www.cucbc.org/darkness.txt";
+		if($fp = fopen($filename, "r")) {
+			while(!feof($fp)) {
+				$date = fgets($fp, 1024);
+				$lightings[0] = fgets($fp, 1024);
+				$lightings[1] = fgets($fp, 1024);
+				$lightings[2] = fgets($fp, 1024);
+				$lightings[3] = fgets($fp, 1024);
+			}
+			fclose($fp);
+//			$lightingtable = "<table><tr><td>&nbsp;</td><td><img src=\"/img/lighting_down.gif\" alt=\"Lighting Down\" /></td><td><img src=\"/img/lighting_up.gif\" alt=\"Lighting Up\" /></td></tr>
+            // Updated to use different image directory to keep module self contained. -Calum 05/05/2011.
+			$lightingtable = "<table><tr><td>&nbsp;</td><td><img src=\"/sites/all/modules/riverstatus/images/lighting_down.gif\" alt=\"Lighting Down\" /></td><td><img src=\"/sites/all/modules/riverstatus/images/lighting_up.gif\" alt=\"Lighting Up\" /></td></tr>
+		<tr><td>Today</td><td>$lightings[0]</td><td>$lightings[1]</td></tr>
+		<tr><td>Tomorrow</td><td>$lightings[2]</td><td>$lightings[3]</td></tr></table>";
+		}
+		else $lightingtable = "Lighting times unavailable.";
+			
+		$block['subject'] = 'River Status';
+//		$block['content'] = "<table border=\"0\"><tr><td><img src=\"/img/flag/$flag_raw.png\"  alt=\"$flag flag\" /></td><td valign=\"center\">Flag is <b>$flag</b></td></tr></table>
+		$block['content'] = "<table border=\"0\"><tr><td><img src=\"/sites/all/modules/riverstatus/images/$flag_raw.png\"  alt=\"$flag flag\" /></td><td valign=\"center\">Flag is <b>$flag</b></td></tr></table>
+		$lightingtable
+		<p>Information provided by <a href=\"http://www.cucbc.org\">CUCBC</a></p>";
+		return $block;
+	}
+}
+
+?>

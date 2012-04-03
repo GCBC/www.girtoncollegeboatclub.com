@@ -1,0 +1,8 @@
+sites/default/settings.php
+sites/files
+
+# Do not ignore the following functionality specific files
+
+!sites/files/addthis
+!sites/files/css3pie
+!sites/files/.htaccess

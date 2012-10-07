@@ -1,3 +1,4 @@
-* config -> Config files organised by directory.
-* scripts -> Roughly corresponding to `/opt/scripts` on server.
-* www -> Main website. Corresponding to `/var/www/www` on server.
+* bin -> Executables that support the website.
+* config -> Config files, organised by directory.
+* database -> Complete description of the database.
+* website -> Main website.
